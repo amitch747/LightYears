@@ -23,21 +23,6 @@ add_library(${LIGHT_YEARS_ENGINE_TARGET_NAME} STATIC
 	${CMAKE_CURRENT_SOURCE_DIR}/include/framework/Core.h
 	${CMAKE_CURRENT_SOURCE_DIR}/src/framework/Core.cpp
 
-	${CMAKE_CURRENT_SOURCE_DIR}/include/spaceship/spaceship.h
-	${CMAKE_CURRENT_SOURCE_DIR}/src/spaceship/spaceship.cpp
-
-	${CMAKE_CURRENT_SOURCE_DIR}/include/player/PlayerSpaceship.h
-	${CMAKE_CURRENT_SOURCE_DIR}/src/player/PlayerSpaceship.cpp
-
-	${CMAKE_CURRENT_SOURCE_DIR}/include/weapon/Shooter.h
-	${CMAKE_CURRENT_SOURCE_DIR}/src/weapon/Shooter.cpp
-
-	${CMAKE_CURRENT_SOURCE_DIR}/include/weapon/BulletShooter.h
-	${CMAKE_CURRENT_SOURCE_DIR}/src/weapon/BulletShooter.cpp
-
-	${CMAKE_CURRENT_SOURCE_DIR}/include/weapon/Bullet.h
-	${CMAKE_CURRENT_SOURCE_DIR}/src/weapon/Bullet.cpp
-
 	${CMAKE_CURRENT_SOURCE_DIR}/include/EntryPoint.h
 	${CMAKE_CURRENT_SOURCE_DIR}/src/EntryPoint.cpp
 
