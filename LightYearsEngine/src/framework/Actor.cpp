@@ -15,7 +15,8 @@ namespace ly
 		mSprite{},
 		mTexture{},
 		mPhysicsBody{nullptr},
-		mPhysicsEnabled{false}
+		mPhysicsEnabled{false},
+		mTeamID{ GetNeutralTeamID()}
 	{
 		SetTexture(texturePath);
 	}
@@ -167,18 +168,28 @@ namespace ly
 
 	void Actor::OnActorBeginOverlap(Actor* other)
 	{
-		LOG("Overlapped");
+		//LOG("Overlapped");
 	}
 
 	void Actor::OnActorEndOverlap(Actor* other)
 	{
-		LOG("Overlap Finished");
+		//LOG("Overlap Finished");
 	}
+
 
 	void Actor::Destroy()
 	{
 		UnInitializePhysics();
 		Object::Destroy();
+	}
+
+	bool Actor::IsOtherHostile(Actor* other) const
+	{
+		if (GetTeamID() == GetNeutralTeamID() || other->GetTeamID() == GetNeutralTeamID())
+		{
+			return false;
+		}
+		return GetTeamID() != other->GetTeamID();
 	}
 
 	void Actor::InitializePhysics()
@@ -214,5 +225,10 @@ namespace ly
 	{
 		sf::FloatRect bound = GetActorGlobalBounds();
 		mSprite.setOrigin(bound.width / 2.f, bound.height / 2.f);
+	}
+
+	void Actor::ApplyDamage(float amt)
+	{
+
 	}
 }

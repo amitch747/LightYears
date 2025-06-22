@@ -20,6 +20,9 @@ add_library(${LIGHT_YEARS_ENGINE_TARGET_NAME} STATIC
 	${CMAKE_CURRENT_SOURCE_DIR}/include/framework/PhysicsSystem.h
 	${CMAKE_CURRENT_SOURCE_DIR}/src/framework/PhysicsSystem.cpp
 
+	${CMAKE_CURRENT_SOURCE_DIR}/include/framework/Delegate.h
+	${CMAKE_CURRENT_SOURCE_DIR}/src/framework/Delegate.cpp
+
 	${CMAKE_CURRENT_SOURCE_DIR}/include/framework/Core.h
 	${CMAKE_CURRENT_SOURCE_DIR}/src/framework/Core.cpp
 
@@ -61,7 +64,7 @@ FetchContent_MakeAvailable(${BOX2D_LIB_NAME})
 target_link_libraries(${LIGHT_YEARS_ENGINE_TARGET_NAME} PUBLIC box2d)
 
 
-
+# I FORGET WHAT THIS IS FOR!!!!
 function(CopyLibToTarget LIB_NAME TARGET_NAME)
 	add_custom_command(TARGET ${TARGET_NAME}
 		POST_BUILD
