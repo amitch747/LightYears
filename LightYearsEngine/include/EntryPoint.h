@@ -5,4 +5,5 @@ namespace ly
 {
 	class Application;
 }
+// Some other class will implement this (the game)
 extern ly::Application* GetApplication();

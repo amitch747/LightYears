@@ -2,17 +2,21 @@
 #include <iostream>
 #include "framework/Core.h"
 #include "framework/World.h"
+#include "framework/AssetManager.h"
+
 
 namespace ly
 {
-	Application::Application()
-		: mWindow{ sf::VideoMode(1024,1440), "LightYears" },
-		mTargetFrameRate{60.f},
+	Application::Application(unsigned int windowWidth, unsigned int windowHeight, const std::string& title, sf::Uint32 style)
+		: mWindow{ sf::VideoMode(windowWidth,windowHeight), title, style },
+		mTargetFrameRate{ 60.f },
 		mTickClock{},
-		currentWorld{ nullptr }
+		currentWorld{ nullptr },
+		mCleanCycleClock{},
+		mCleanCycleInterval{2.f}
 	{
-	}
 
+	}
 	void Application::Run()
 	{
 		mTickClock.restart();
@@ -28,7 +32,6 @@ namespace ly
 					mWindow.close();
 				}
 			}
-			float frameDeltaTime = mTickClock.restart().asSeconds();
 			accumulatedTime += mTickClock.restart().asSeconds();
 			while (accumulatedTime > targetDeltaTime) 
 			{
@@ -40,6 +43,11 @@ namespace ly
 		}
 	}
 
+	sf::Vector2u Application::GetWindowSize()
+	{
+		return mWindow.getSize();
+	}
+
 	void Application::TickInternal(float deltaTime)
 	{
 		Tick(deltaTime);
@@ -48,12 +56,16 @@ namespace ly
 		{
 			currentWorld->TickInternal(deltaTime);
 		}
+		if (mCleanCycleClock.getElapsedTime().asSeconds() >= mCleanCycleInterval)
+		{
+			mCleanCycleClock.restart();
+			AssetManager::Get().CleanCycle();
+		}
 	}
 
 	void Application::Tick(float deltaTime)
 	{
-		LOG("Tick at framerate: %f", 1.f / deltaTime);
-
+		//LOG("Tick at framerate: %f", 1.f / deltaTime);
 	}
 
 
@@ -67,12 +79,10 @@ namespace ly
 
 	void Application::Render()
 	{
-		sf::RectangleShape rect{ sf::Vector2f{100, 100} };
-		rect.setFillColor(sf::Color::Green);
-		rect.setPosition(mWindow.getSize().x / 2.f, mWindow.getSize().y / 2.f);
-
-
-		mWindow.draw(rect);
+		if (currentWorld)
+		{
+			currentWorld->Render(mWindow);
+		}
 	}
 
 }
