@@ -30,17 +30,8 @@ namespace ly
 		mPendingActors.clear();
 		for (auto iter = mActors.begin(); iter != mActors.end();)
 		{
-			if (iter->get()->IsPendingDestroy())
-			{
-				// erase() returns next iterator, no need to increment in for loop
-				iter = mActors.erase(iter);
-			}
-			else
-			{
-				// Not destroying, tick
 				iter->get()->TickInternal(deltaTime);
 				++iter;
-			}
 		}
 
 		Tick(deltaTime);
@@ -64,6 +55,21 @@ namespace ly
 		return mOwningApp->GetWindowSize();
 	}
 
+	void World::CleanCycle()
+	{
+		for (auto iter = mActors.begin(); iter != mActors.end();)
+		{
+			if (iter->get()->IsPendingDestroy())
+			{
+				// erase() returns next iterator, no need to increment in for loop
+				iter = mActors.erase(iter);
+			}
+			else
+			{
+				++iter;
+			}
+		}
+	}
 
 	void World::BeginPlay()
 	{

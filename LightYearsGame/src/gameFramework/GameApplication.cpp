@@ -24,20 +24,23 @@ namespace ly
 		newWorld.lock()->SpawnActor<Actor>();
 		testPlayerSpaceShip = newWorld.lock()->SpawnActor<PlayerSpaceship>();
 		testPlayerSpaceShip.lock()->SetActorLocation(sf::Vector2f(300.f, 490.f));
-		//testPlayerSpaceShip.lock()->setActorRotation(90.f);
 
-		counter = 0;
+		weak<Spaceship> testSpaceship = newWorld.lock()->SpawnActor<Spaceship>();
+		testSpaceship.lock()->SetTexture("SpaceShooterRedux/PNG/playerShip1_blue.png");
+		testSpaceship.lock()->SetActorLocation(sf::Vector2f{ 100.f, 50.f });
+
+
+		counter = 0.f;
 	}
 	void GameApplication::Tick(float deltaTime)
 	{
-		//counter += deltaTime;
-		//if (counter > 2.f)
-		//{
-		//	if (!actorToDestroy.expired())
-		//	{
-		//		// Need to lock again since SpawnActor<Actor>() returns a <weak>
-		//		actorToDestroy.lock()->Destroy();
-		//	}
-		//}
+		counter += deltaTime;
+		if (counter > 10.f)
+		{
+			if (!testPlayerSpaceShip.expired())
+			{
+				testPlayerSpaceShip.lock()->Destroy();
+			}
+		}
 	}
 }

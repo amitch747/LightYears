@@ -16,11 +16,11 @@ namespace ly
 	shared<sf::Texture> AssetManager::LoadTexture(const std::string& path)
 	{
 
-		LOG("LoadTexture called with path: '%s'", path.c_str());
-		LOG("Root directory: '%s'", mRootDirectory.c_str());
+		//LOG("LoadTexture called with path: '%s'", path.c_str());
+		//LOG("Root directory: '%s'", mRootDirectory.c_str());
 
 		std::string fullPath = mRootDirectory + path;
-		LOG("Full path: '%s'", fullPath.c_str());
+		//LOG("Full path: '%s'", fullPath.c_str());
 
 
 		auto found = mLoadedTextureMap.find(path);

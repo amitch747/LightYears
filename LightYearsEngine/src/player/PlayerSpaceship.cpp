@@ -8,7 +8,7 @@ namespace ly
 		: Spaceship{owningWorld, path},
 		mMoveInput{},
 		mSpeed{200.f},
-		mShooter{new BulletShooter{this}}
+		mShooter{new BulletShooter{this, 0.1f}}
 	{
 
 	}
@@ -54,7 +54,7 @@ namespace ly
 	void PlayerSpaceship::NormalizeInput()
 	{
 		Normalize(mMoveInput);
-		LOG("move input is now: %f, %f", mMoveInput.x, mMoveInput.y);
+		//LOG("move input is now: %f, %f", mMoveInput.x, mMoveInput.y);
 	}
 	void PlayerSpaceship::ClampInputOnEdge()
 	{

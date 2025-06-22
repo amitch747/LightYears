@@ -2,6 +2,10 @@
 #include <SFML/Graphics.hpp>
 #include "framework/Core.h"
 #include "framework/Object.h"
+
+
+class b2Body;
+
 namespace ly
 {
 	class World;
@@ -14,11 +18,11 @@ namespace ly
 		void TickInternal(float deltaTime);
 		virtual void BeginPlay();
 		virtual void Tick(float deltaTime);
-		void setTexture(const std::string& texturePath);
+		void SetTexture(const std::string& texturePath);
 		void Render(sf::RenderWindow& window);
 
 		void SetActorLocation(const sf::Vector2f& newLoc);
-		void setActorRotation(float newRot);
+		void SetActorRotation(float newRot);
 		void AddActorLocationOffset(const sf::Vector2f& offsetAmt);
 		void AddActorRotationOffset(const float offsetAmt);
 
@@ -26,15 +30,31 @@ namespace ly
 		float GetActorRotation() const;
 		sf::Vector2f GetActorForwardDirection() const;
 		sf::Vector2f GetActorRightDirection() const;
+		sf::FloatRect GetActorGlobalBounds() const;
 
 		sf::Vector2u GetWindowSize() const;
 
+		World* GetWorld() const { return mOwningWorld; }
+
+		bool IsActorOutOfWindowBounds() const;
+
+		void SetEnablePhysics(bool enable);
+		virtual void OnActorBeginOverlap(Actor* other);
+		virtual void OnActorEndOverlap(Actor* other);
+		virtual void Destroy() override;
+
 	private:
+		void InitializePhysics();
+		void UnInitializePhysics();
+		void UpdatePhysicsBodyTransform();
 		void CenterPivot();
 		World* mOwningWorld;
 		bool mHasBeginPlay;
 
 		sf::Sprite mSprite;
 		shared<sf::Texture> mTexture;
+
+		b2Body* mPhysicsBody;
+		bool mPhysicsEnabled;
 	};
 }

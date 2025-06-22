@@ -1,5 +1,7 @@
 #include "weapon/BulletShooter.h"
 #include "framework/Core.h"
+#include "weapon/Bullet.h"
+#include "framework/World.h"
 namespace ly
 {
 	BulletShooter::BulletShooter(Actor* owner, float cooldownTime)
@@ -19,6 +21,8 @@ namespace ly
 	void BulletShooter::ShootImpl()
 	{
 		mCooldownClock.restart();
-		LOG("shooting");
+		weak<Bullet> newBullet = GetOwner()->GetWorld()->SpawnActor<Bullet>(GetOwner(), "SpaceShooterRedux/PNG/Lasers/laserBlue01.png");
+		newBullet.lock()->SetActorLocation(GetOwner()->GetActorLocation());
+		newBullet.lock()->SetActorRotation(GetOwner()->GetActorRotation());
 	}
 }
