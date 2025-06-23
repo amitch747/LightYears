@@ -9,6 +9,7 @@ namespace ly
 		mDamage{ damage }
 	{
 		SetTeamID(owner->GetTeamID());
+
 	}
 	void Bullet::SetSpeed(float newSpeed)
 	{

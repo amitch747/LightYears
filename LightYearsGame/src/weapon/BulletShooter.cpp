@@ -4,10 +4,11 @@
 #include "framework/World.h"
 namespace ly
 {
-	BulletShooter::BulletShooter(Actor* owner, float cooldownTime)
+	BulletShooter::BulletShooter(Actor* owner, float cooldownTime, float rotationOffset)
 		: Shooter{owner},
 		mCooldownClock{},
-		mCooldownTime{cooldownTime}
+		mCooldownTime{cooldownTime},
+		mRotationOffset{rotationOffset}
 	{
 	}
 	bool BulletShooter::IsOnCooldown() const
@@ -23,6 +24,6 @@ namespace ly
 		mCooldownClock.restart();
 		weak<Bullet> newBullet = GetOwner()->GetWorld()->SpawnActor<Bullet>(GetOwner(), "SpaceShooterRedux/PNG/Lasers/laserBlue01.png");
 		newBullet.lock()->SetActorLocation(GetOwner()->GetActorLocation());
-		newBullet.lock()->SetActorRotation(GetOwner()->GetActorRotation());
+		newBullet.lock()->SetActorRotation(GetOwner()->GetActorRotation() + mRotationOffset);
 	}
 }

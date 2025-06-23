@@ -1,11 +1,14 @@
 #pragma once
 #include "framework/Core.h"
 #include <SFML/Graphics.hpp>
+#include <framework/Object.h>
+
 namespace ly
 {
 	class Actor;
 	class Application;
-	class World
+	class GameStage;
+	class World : public Object
 	{
 	public:
 		World(Application* owningApp);
@@ -22,15 +25,22 @@ namespace ly
 
 		sf::Vector2u GetWindowSize() const;
 		void CleanCycle();
+		void AddStage(const shared<GameStage>& newStage);
 	private:
-		void BeginPlay();
-		void Tick(float deltaTime);
+		virtual void BeginPlay();
+		virtual void Tick(float deltaTime);
 		Application* mOwningApp;
 		bool mBeganPlay;
 
 		List<shared<Actor>> mActors;
 
 		List<shared<Actor>> mPendingActors;
+
+		List<shared<GameStage>> mGameStages;
+		int mCurrentStageIndex;
+		virtual void InitGameStages();
+		virtual void AllGameStageFinished();
+		void NextGameStage();
 	};
 
 
