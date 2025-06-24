@@ -37,7 +37,7 @@ namespace ly
 	}
 	void VanguardStage::SpawnVanguard()
 	{
-		weak<TwinBlade> newVanguard = GetWorld()->SpawnActor<TwinBlade>();
+		weak<Vanguard> newVanguard = GetWorld()->SpawnActor<Vanguard>();
 		newVanguard.lock()->SetActorLocation(mSpawnLoc);
 		++mCurrentRowVanguardCount;
 		if (mCurrentRowVanguardCount == mVanguardsPerRow)
