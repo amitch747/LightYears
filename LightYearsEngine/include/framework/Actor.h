@@ -61,7 +61,7 @@ namespace ly
 		void UpdatePhysicsBodyTransform();
 		void CenterPivot();
 		World* mOwningWorld;
-		bool mHasBeginPlay;
+		bool mHasBeginPlay; 
 
 		sf::Sprite mSprite;
 		shared<sf::Texture> mTexture;

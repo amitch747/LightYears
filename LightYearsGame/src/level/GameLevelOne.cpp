@@ -7,7 +7,7 @@
 #include "framework/TimerManager.h"
 #include "gameplay/GameStage.h"
 #include "enemy/VanguardStage.h"
-
+#include "gameplay/WaitStage.h"
 namespace ly
 {
 	GameLevelOne::GameLevelOne(Application* owningApp)
@@ -24,5 +24,8 @@ namespace ly
 	void GameLevelOne::InitGameStages()
 	{
 		AddStage(shared<VanguardStage>{new VanguardStage{ this }});
+		AddStage(shared<WaitStage>{new WaitStage{ this, 5.f }});
+		AddStage(shared<VanguardStage>{new VanguardStage{ this }});
+
 	}	
 }
